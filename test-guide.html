@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Account Test Guide - AttendEase</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .test-guide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .guide-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .account-section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .account-header {
+            padding: 20px 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .admin-header { background: #e74c3c; }
+        .teacher-header { background: #3498db; }
+        .student-header { background: #27ae60; }
+        .account-content {
+            padding: 30px;
+        }
+        .credentials-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        .test-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        .test-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 60px;
+        }
+        .test-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3498db;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+        }
+        .feature-item.restricted {
+            border-left-color: #e74c3c;
+            opacity: 0.6;
+        }
+        .quick-test-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 10px 10px 0;
+            transition: background 0.3s ease;
+        }
+        .quick-test-btn:hover {
+            background: #2980b9;
+        }
+        .admin-btn { background: #e74c3c; }
+        .admin-btn:hover { background: #c0392b; }
+        .teacher-btn { background: #3498db; }
+        .teacher-btn:hover { background: #2980b9; }
+        .student-btn { background: #27ae60; }
+        .student-btn:hover { background: #229954; }
+        .expected-result {
+            background: #d5f4e6;
+            border: 1px solid #27ae60;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .troubleshooting {
+            background: #fadbd8;
+            border: 1px solid #e74c3c;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-guide">
+        <div class="guide-header">
+            <h1><i class="fas fa-calendar-check"></i> AttendEase Demo Account Test Guide</h1>
+            <p>Complete testing guide for all three demo accounts with step-by-step instructions</p>
+            <div style="margin-top: 20px;">
+                <a href="login.html" class="quick-test-btn">Go to Login Page</a>
+                <a href="index.html" class="quick-test-btn">Back to Homepage</a>
+            </div>
+        </div>
+
+        <!-- Admin Account Testing -->
+        <div class="account-section">
+            <div class="account-header admin-header">
+                <i class="fas fa-user-shield fa-2x"></i>
+                <div>
+                    <h2>Administrator Account</h2>
+                    <p>Full system access with user management capabilities</p>
+                </div>
+            </div>
+            <div class="account-content">
+                <div class="credentials-box">
+                    <h3><i class="fas fa-key"></i> Login Credentials</h3>
+                    <p><strong>Username:</strong> admin</p>
+                    <p><strong>Password:</strong> admin123</p>
+                    <p><strong>User Type:</strong> Administrator</p>
+                    <a href="login.html" class="quick-test-btn admin-btn" onclick="fillAdminCredentials()">
+                        <i class="fas fa-sign-in-alt"></i> Quick Login as Admin
+                    </a>
+                </div>
+
+                <h3><i class="fas fa-list-check"></i> Testing Steps</h3>
+                <ol class="test-steps">
+                    <li>Go to <a href="login.html">Login Page</a></li>
+                    <li>Click the "Admin Demo" button (credentials auto-fill)</li>
+                    <li>Verify User Type dropdown shows "Administrator"</li>
+                    <li>Click "Sign In" button</li>
+                    <li>Wait for "Login successful! Redirecting..." message</li>
+                    <li>Dashboard should load with admin privileges</li>
+                </ol>
+
+                <h3><i class="fas fa-star"></i> Admin Features to Test</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h4><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h4>
+                        <p>View attendance statistics and recent activity</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-calendar-check"></i> Mark Attendance</h4>
+                        <p>Check-in and check-out functionality</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-list"></i> View Records</h4>
+                        <p>See attendance history with filters</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-chart-bar"></i> Generate Reports</h4>
+                        <p>Download CSV reports</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-users"></i> Manage Users</h4>
+                        <p><strong>ADMIN ONLY:</strong> Add, edit, delete users</p>
+                    </div>
+                </div>
+
+                <div class="expected-result">
+                    <h4><i class="fas fa-check-circle"></i> Expected Results</h4>
+                    <ul>
+                        <li>Welcome message: "Welcome, System Administrator"</li>
+                        <li>Sidebar shows "Manage Users" option</li>
+                        <li>Can access all dashboard sections</li>
+                        <li>Can add new users via "Add User" button</li>
+                        <li>Can edit/delete existing users</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Account Testing -->
+        <div class="account-section">
+            <div class="account-header teacher-header">
+                <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                <div>
+                    <h2>Teacher Account</h2>
+                    <p>Standard user with attendance and reporting features</p>
+                </div>
+            </div>
+            <div class="account-content">
+                <div class="credentials-box">
+                    <h3><i class="fas fa-key"></i> Login Credentials</h3>
+                    <p><strong>Username:</strong> teacher1</p>
+                    <p><strong>Password:</strong> teacher123</p>
+                    <p><strong>User Type:</strong> Teacher</p>
+                    <a href="login.html" class="quick-test-btn teacher-btn" onclick="fillTeacherCredentials()">
+                        <i class="fas fa-sign-in-alt"></i> Quick Login as Teacher
+                    </a>
+                </div>
+
+                <h3><i class="fas fa-list-check"></i> Testing Steps</h3>
+                <ol class="test-steps">
+                    <li>Logout from admin account (if logged in)</li>
+                    <li>Go to <a href="login.html">Login Page</a></li>
+                    <li>Click the "Teacher Demo" button</li>
+                    <li>Verify User Type dropdown shows "Teacher"</li>
+                    <li>Click "Sign In" button</li>
+                    <li>Dashboard loads with teacher privileges</li>
+                </ol>
+
+                <h3><i class="fas fa-star"></i> Teacher Features to Test</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h4><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h4>
+                        <p>View personal attendance statistics</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-calendar-check"></i> Mark Attendance</h4>
+                        <p>Check-in and check-out for own attendance</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-list"></i> View Records</h4>
+                        <p>See own attendance history</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-chart-bar"></i> Generate Reports</h4>
+                        <p>Download personal attendance reports</p>
+                    </div>
+                    <div class="feature-item restricted">
+                        <h4><i class="fas fa-users"></i> Manage Users</h4>
+                        <p><strong>RESTRICTED:</strong> Not available for teachers</p>
+                    </div>
+                </div>
+
+                <div class="expected-result">
+                    <h4><i class="fas fa-check-circle"></i> Expected Results</h4>
+                    <ul>
+                        <li>Welcome message: "Welcome, John Teacher"</li>
+                        <li>No "Manage Users" option in sidebar</li>
+                        <li>Can mark own attendance</li>
+                        <li>Can view own records and generate reports</li>
+                        <li>Cannot access user management features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Account Testing -->
+        <div class="account-section">
+            <div class="account-header student-header">
+                <i class="fas fa-user-graduate fa-2x"></i>
+                <div>
+                    <h2>Student Account</h2>
+                    <p>Basic user with limited attendance features</p>
+                </div>
+            </div>
+            <div class="account-content">
+                <div class="credentials-box">
+                    <h3><i class="fas fa-key"></i> Login Credentials</h3>
+                    <p><strong>Username:</strong> student1</p>
+                    <p><strong>Password:</strong> student123</p>
+                    <p><strong>User Type:</strong> Student</p>
+                    <a href="login.html" class="quick-test-btn student-btn" onclick="fillStudentCredentials()">
+                        <i class="fas fa-sign-in-alt"></i> Quick Login as Student
+                    </a>
+                </div>
+
+                <h3><i class="fas fa-list-check"></i> Testing Steps</h3>
+                <ol class="test-steps">
+                    <li>Logout from previous account (if logged in)</li>
+                    <li>Go to <a href="login.html">Login Page</a></li>
+                    <li>Click the "Student Demo" button</li>
+                    <li>Verify User Type dropdown shows "Student"</li>
+                    <li>Click "Sign In" button</li>
+                    <li>Dashboard loads with student privileges</li>
+                </ol>
+
+                <h3><i class="fas fa-star"></i> Student Features to Test</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h4><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h4>
+                        <p>View personal attendance statistics</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-calendar-check"></i> Mark Attendance</h4>
+                        <p>Check-in and check-out for classes</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-list"></i> View Records</h4>
+                        <p>See own attendance history</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4><i class="fas fa-chart-bar"></i> Generate Reports</h4>
+                        <p>Download personal attendance reports</p>
+                    </div>
+                    <div class="feature-item restricted">
+                        <h4><i class="fas fa-users"></i> Manage Users</h4>
+                        <p><strong>RESTRICTED:</strong> Not available for students</p>
+                    </div>
+                </div>
+
+                <div class="expected-result">
+                    <h4><i class="fas fa-check-circle"></i> Expected Results</h4>
+                    <ul>
+                        <li>Welcome message: "Welcome, Jane Student"</li>
+                        <li>No "Manage Users" option in sidebar</li>
+                        <li>Can mark own attendance</li>
+                        <li>Can view own records and generate reports</li>
+                        <li>Cannot access administrative features</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comprehensive Testing Checklist -->
+        <div class="account-section">
+            <div class="account-header" style="background: #9b59b6;">
+                <i class="fas fa-clipboard-check fa-2x"></i>
+                <div>
+                    <h2>Complete Testing Checklist</h2>
+                    <p>Verify all functionality works correctly</p>
+                </div>
+            </div>
+            <div class="account-content">
+                <h3><i class="fas fa-tasks"></i> For Each Account, Test:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4>🔐 Authentication</h4>
+                        <ul>
+                            <li>Demo button auto-fills form</li>
+                            <li>Login succeeds with correct credentials</li>
+                            <li>Login fails with wrong credentials</li>
+                            <li>Redirects to dashboard after login</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>📊 Dashboard</h4>
+                        <ul>
+                            <li>Welcome message shows correct name</li>
+                            <li>Date and time display correctly</li>
+                            <li>Statistics cards show data</li>
+                            <li>Navigation between sections works</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>⏰ Attendance</h4>
+                        <ul>
+                            <li>Check-in button works</li>
+                            <li>Check-out button works</li>
+                            <li>Status updates correctly</li>
+                            <li>Duration calculates properly</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>📋 Records</h4>
+                        <ul>
+                            <li>Attendance history displays</li>
+                            <li>Date filter works</li>
+                            <li>Month filter works</li>
+                            <li>Data persists after refresh</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>📈 Reports</h4>
+                        <ul>
+                            <li>Report generation works</li>
+                            <li>CSV download functions</li>
+                            <li>Different report types work</li>
+                            <li>Data is accurate</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>👥 User Management (Admin Only)</h4>
+                        <ul>
+                            <li>Add user modal opens</li>
+                            <li>New user creation works</li>
+                            <li>User list displays</li>
+                            <li>Edit/delete buttons function</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting Section -->
+        <div class="troubleshooting">
+            <h3><i class="fas fa-wrench"></i> Troubleshooting Common Issues</h3>
+            
+            <h4>🚫 Login Not Working</h4>
+            <ul>
+                <li>Clear browser cache and localStorage</li>
+                <li>Try different browser (Chrome, Firefox, Safari)</li>
+                <li>Check browser console (F12) for errors</li>
+                <li>Ensure JavaScript is enabled</li>
+            </ul>
+
+            <h4>📱 Dashboard Not Loading</h4>
+            <ul>
+                <li>Use local server instead of file:// protocol</li>
+                <li>Check if redirected back to login (session expired)</li>
+                <li>Verify all JavaScript files are loading</li>
+            </ul>
+
+            <h4>💾 Data Not Saving</h4>
+            <ul>
+                <li>Check if localStorage is enabled</li>
+                <li>Try incognito/private browsing mode</li>
+                <li>Clear localStorage and start fresh</li>
+            </ul>
+
+            <h4>🔧 Reset Everything</h4>
+            <p>Open browser console (F12) and run:</p>
+            <code style="background: #f8f9fa; padding: 10px; display: block; margin: 10px 0; border-radius: 5px;">
+                localStorage.clear();<br>
+                location.reload();
+            </code>
+        </div>
+    </div>
+
+    <script>
+        // Helper functions for quick login
+        function fillAdminCredentials() {
+            localStorage.setItem('quickLogin', JSON.stringify({
+                userType: 'admin',
+                username: 'admin',
+                password: 'admin123'
+            }));
+        }
+
+        function fillTeacherCredentials() {
+            localStorage.setItem('quickLogin', JSON.stringify({
+                userType: 'teacher',
+                username: 'teacher1',
+                password: 'teacher123'
+            }));
+        }
+
+        function fillStudentCredentials() {
+            localStorage.setItem('quickLogin', JSON.stringify({
+                userType: 'student',
+                username: 'student1',
+                password: 'student123'
+            }));
+        }
+
+        // Auto-fill login form if coming from quick login
+        document.addEventListener('DOMContentLoaded', () => {
+            const quickLogin = localStorage.getItem('quickLogin');
+            if (quickLogin && window.location.pathname.includes('login.html')) {
+                const credentials = JSON.parse(quickLogin);
+                setTimeout(() => {
+                    const userTypeSelect = document.getElementById('userType');
+                    const usernameInput = document.getElementById('username');
+                    const passwordInput = document.getElementById('password');
+                    
+                    if (userTypeSelect && usernameInput && passwordInput) {
+                        userTypeSelect.value = credentials.userType;
+                        usernameInput.value = credentials.username;
+                        passwordInput.value = credentials.password;
+                    }
+                    
+                    localStorage.removeItem('quickLogin');
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

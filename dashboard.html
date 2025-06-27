@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AttendEase</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar dashboard-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-calendar-check"></i>
+                <span>AttendEase</span>
+            </div>
+            <div class="nav-user">
+                <span id="userWelcome">Welcome, User</span>
+                <button class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#dashboard" class="sidebar-link active" onclick="showSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#attendance" class="sidebar-link" onclick="showSection('attendance')">
+                    <i class="fas fa-calendar-check"></i> Mark Attendance
+                </a></li>
+                <li><a href="#records" class="sidebar-link" onclick="showSection('records')">
+                    <i class="fas fa-list"></i> View Records
+                </a></li>
+                <li><a href="#reports" class="sidebar-link" onclick="showSection('reports')">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </a></li>
+                <li id="adminMenu" style="display: none;"><a href="#users" class="sidebar-link" onclick="showSection('users')">
+                    <i class="fas fa-users"></i> Manage Users
+                </a></li>
+            </ul>
+        </aside>
+
+        <main class="dashboard-main">
+            <!-- Dashboard Overview -->
+            <section id="dashboardSection" class="dashboard-section active">
+                <div class="dashboard-header">
+                    <h1>Dashboard Overview</h1>
+                    <div class="date-display">
+                        <i class="fas fa-calendar"></i>
+                        <span id="currentDate"></span>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="todayAttendance">0</h3>
+                            <p>Today's Attendance</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="weekAttendance">0</h3>
+                            <p>This Week</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="monthAttendance">0</h3>
+                            <p>This Month</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="attendanceRate">0%</h3>
+                            <p>Attendance Rate</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-list" id="recentActivity">
+                        <!-- Recent activities will be populated here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mark Attendance -->
+            <section id="attendanceSection" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Mark Attendance</h1>
+                    <div class="current-time">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentTime"></span>
+                    </div>
+                </div>
+
+                <div class="attendance-form-container">
+                    <div class="attendance-status" id="attendanceStatus">
+                        <!-- Status will be shown here -->
+                    </div>
+
+                    <div class="attendance-actions">
+                        <button id="checkInBtn" class="btn btn-success btn-large" onclick="markAttendance('in')">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Check In
+                        </button>
+                        <button id="checkOutBtn" class="btn btn-danger btn-large" onclick="markAttendance('out')" disabled>
+                            <i class="fas fa-sign-out-alt"></i>
+                            Check Out
+                        </button>
+                    </div>
+
+                    <div class="today-summary" id="todaySummary">
+                        <!-- Today's attendance summary -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- View Records -->
+            <section id="recordsSection" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Attendance Records</h1>
+                    <div class="filter-controls">
+                        <input type="date" id="dateFilter" class="form-control">
+                        <select id="monthFilter" class="form-control">
+                            <option value="">All Months</option>
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="filterRecords()">Filter</button>
+                    </div>
+                </div>
+
+                <div class="records-table-container">
+                    <table class="records-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recordsTableBody">
+                            <!-- Records will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Reports -->
+            <section id="reportsSection" class="dashboard-section">
+                <div class="section-header">
+                    <h1>Attendance Reports</h1>
+                    <button class="btn btn-primary" onclick="generateReport()">
+                        <i class="fas fa-download"></i>
+                        Download Report
+                    </button>
+                </div>
+
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>Report Type:</label>
+                        <select id="reportType" class="form-control">
+                            <option value="monthly">Monthly Report</option>
+                            <option value="weekly">Weekly Report</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>From Date:</label>
+                        <input type="date" id="reportFromDate" class="form-control">
+                    </div>
+                    <div class="filter-group">
+                        <label>To Date:</label>
+                        <input type="date" id="reportToDate" class="form-control">
+                    </div>
+                </div>
+
+                <div class="report-summary" id="reportSummary">
+                    <!-- Report summary will be displayed here -->
+                </div>
+
+                <div class="report-chart">
+                    <canvas id="attendanceChart" width="400" height="200"></canvas>
+                </div>
+            </section>
+
+            <!-- User Management (Admin Only) -->
+            <section id="usersSection" class="dashboard-section">
+                <div class="section-header">
+                    <h1>User Management</h1>
+                    <button class="btn btn-primary" onclick="showAddUserModal()">
+                        <i class="fas fa-plus"></i>
+                        Add User
+                    </button>
+                </div>
+
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Users will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New User</h2>
+                <span class="close" onclick="closeAddUserModal()">&times;</span>
+            </div>
+            <form id="addUserForm">
+                <div class="form-group">
+                    <label for="newUserName">Full Name:</label>
+                    <input type="text" id="newUserName" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUserEmail">Email:</label>
+                    <input type="email" id="newUserEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUserRole">Role:</label>
+                    <select id="newUserRole" required>
+                        <option value="">Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newUserPassword">Password:</label>
+                    <input type="password" id="newUserPassword" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddUserModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts/database.js"></script>
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>

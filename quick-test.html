@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Demo Test - AttendEase</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 800px;
+            width: 100%;
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .test-header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .test-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .account-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 3px solid transparent;
+        }
+        .account-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .account-card.admin {
+            border-color: #e74c3c;
+        }
+        .account-card.teacher {
+            border-color: #3498db;
+        }
+        .account-card.student {
+            border-color: #27ae60;
+        }
+        .account-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .admin .account-icon { color: #e74c3c; }
+        .teacher .account-icon { color: #3498db; }
+        .student .account-icon { color: #27ae60; }
+        .account-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .credentials {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid #3498db;
+        }
+        .test-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+        .test-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .test-btn.admin { background: #e74c3c; }
+        .test-btn.admin:hover { background: #c0392b; }
+        .test-btn.teacher { background: #3498db; }
+        .test-btn.teacher:hover { background: #2980b9; }
+        .test-btn.student { background: #27ae60; }
+        .test-btn.student:hover { background: #229954; }
+        .instructions {
+            background: #d6eaf8;
+            border: 1px solid #3498db;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #3498db;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status-ready { background: #d5f4e6; color: #27ae60; }
+        .status-testing { background: #fef9e7; color: #f39c12; }
+        .status-complete { background: #d6eaf8; color: #3498db; }
+        .quick-actions {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🧪 Demo Account Quick Test</h1>
+            <p>Test all three demo accounts with one-click access</p>
+        </div>
+
+        <div class="account-grid">
+            <!-- Admin Account -->
+            <div class="account-card admin">
+                <div class="account-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="account-title">Administrator</div>
+                <div class="credentials">
+                    <strong>Username:</strong> admin<br>
+                    <strong>Password:</strong> admin123<br>
+                    <strong>Type:</strong> Administrator
+                </div>
+                <button class="test-btn admin" onclick="testAccount('admin')">
+                    <i class="fas fa-play"></i> Test Admin
+                </button>
+                <span id="admin-status" class="status-indicator status-ready">Ready</span>
+                
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;">
+                    <strong>Features:</strong> Full access, User management, All reports
+                </div>
+            </div>
+
+            <!-- Teacher Account -->
+            <div class="account-card teacher">
+                <div class="account-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="account-title">Teacher</div>
+                <div class="credentials">
+                    <strong>Username:</strong> teacher1<br>
+                    <strong>Password:</strong> teacher123<br>
+                    <strong>Type:</strong> Teacher
+                </div>
+                <button class="test-btn teacher" onclick="testAccount('teacher')">
+                    <i class="fas fa-play"></i> Test Teacher
+                </button>
+                <span id="teacher-status" class="status-indicator status-ready">Ready</span>
+                
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;">
+                    <strong>Features:</strong> Personal attendance, Own reports, No user management
+                </div>
+            </div>
+
+            <!-- Student Account -->
+            <div class="account-card student">
+                <div class="account-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="account-title">Student</div>
+                <div class="credentials">
+                    <strong>Username:</strong> student1<br>
+                    <strong>Password:</strong> student123<br>
+                    <strong>Type:</strong> Student
+                </div>
+                <button class="test-btn student" onclick="testAccount('student')">
+                    <i class="fas fa-play"></i> Test Student
+                </button>
+                <span id="student-status" class="status-indicator status-ready">Ready</span>
+                
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;">
+                    <strong>Features:</strong> Basic attendance, Personal records only
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> How to Test</h3>
+            <ol class="step-list">
+                <li>Click any "Test" button above</li>
+                <li>You'll be redirected to login page with auto-filled credentials</li>
+                <li>Click "Sign In" to login</li>
+                <li>Explore the dashboard features</li>
+                <li>Test attendance marking (Check-in/Check-out)</li>
+                <li>View records and generate reports</li>
+                <li>For Admin: Test user management features</li>
+                <li>Logout and test the next account</li>
+            </ol>
+        </div>
+
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <a href="index.html" class="test-btn">
+                <i class="fas fa-home"></i> Homepage
+            </a>
+            <a href="login.html" class="test-btn">
+                <i class="fas fa-sign-in-alt"></i> Login Page
+            </a>
+            <button class="test-btn" onclick="runAllTests()">
+                <i class="fas fa-rocket"></i> Test All Accounts
+            </button>
+            <button class="test-btn" onclick="resetData()">
+                <i class="fas fa-refresh"></i> Reset Data
+            </button>
+        </div>
+
+        <!-- Test Results -->
+        <div id="test-results" style="margin-top: 30px; display: none;">
+            <h3><i class="fas fa-clipboard-check"></i> Test Results</h3>
+            <div id="results-content"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        // Test account function
+        function testAccount(accountType) {
+            const credentials = {
+                admin: { username: 'admin', password: 'admin123', type: 'admin', displayName: 'Administrator' },
+                teacher: { username: 'teacher1', password: 'teacher123', type: 'teacher', displayName: 'Teacher' },
+                student: { username: 'student1', password: 'student123', type: 'student', displayName: 'Student' }
+            };
+
+            const account = credentials[accountType];
+            if (!account) return;
+
+            // Update status
+            updateStatus(accountType, 'testing', 'Testing...');
+
+            // Store credentials for auto-fill
+            localStorage.setItem('autoFillCredentials', JSON.stringify({
+                username: account.username,
+                password: account.password,
+                userType: account.type,
+                fromQuickTest: true
+            }));
+
+            // Show testing message
+            showMessage(`Testing ${account.displayName} account...`, 'info');
+
+            // Redirect to login page
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
+        }
+
+        // Run all tests sequentially
+        async function runAllTests() {
+            showMessage('Starting comprehensive test of all accounts...', 'info');
+            
+            const accounts = ['admin', 'teacher', 'student'];
+            
+            for (let account of accounts) {
+                updateStatus(account, 'testing', 'Testing...');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                updateStatus(account, 'complete', 'Tested');
+            }
+            
+            showMessage('All accounts tested! Check individual results.', 'success');
+        }
+
+        // Reset all data
+        function resetData() {
+            if (confirm('This will clear all attendance data and reset to defaults. Continue?')) {
+                localStorage.clear();
+                showMessage('All data has been reset to defaults.', 'success');
+                
+                // Reset status indicators
+                ['admin', 'teacher', 'student'].forEach(account => {
+                    updateStatus(account, 'ready', 'Ready');
+                });
+            }
+        }
+
+        // Update status indicator
+        function updateStatus(accountType, status, text) {
+            const statusElement = document.getElementById(`${accountType}-status`);
+            if (statusElement) {
+                statusElement.className = `status-indicator status-${status}`;
+                statusElement.textContent = text;
+            }
+        }
+
+        // Show message
+        function showMessage(message, type = 'info') {
+            // Remove existing messages
+            const existingMessages = document.querySelectorAll('.test-message');
+            existingMessages.forEach(msg => msg.remove());
+
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `test-message`;
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                ${type === 'success' ? 'background: #27ae60;' : ''}
+                ${type === 'error' ? 'background: #e74c3c;' : ''}
+                ${type === 'info' ? 'background: #3498db;' : ''}
+            `;
+            messageDiv.textContent = message;
+
+            document.body.appendChild(messageDiv);
+
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 3000);
+        }
+
+        // Check if returning from a test
+        document.addEventListener('DOMContentLoaded', () => {
+            const testResult = localStorage.getItem('testResult');
+            if (testResult) {
+                const result = JSON.parse(testResult);
+                updateStatus(result.accountType, 'complete', 'Completed');
+                showMessage(`${result.accountName} test completed successfully!`, 'success');
+                localStorage.removeItem('testResult');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        testAccount('admin');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        testAccount('teacher');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        testAccount('student');
+                        break;
+                    case 'r':
+                        e.preventDefault();
+                        resetData();
+                        break;
+                }
+            }
+        });
+
+        // Show keyboard shortcuts info
+        console.log('🎯 Keyboard Shortcuts:');
+        console.log('Ctrl+1 - Test Admin');
+        console.log('Ctrl+2 - Test Teacher');
+        console.log('Ctrl+3 - Test Student');
+        console.log('Ctrl+R - Reset Data');
+    </script>
+</body>
+</html>
